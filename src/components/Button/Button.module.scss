@@ -22,6 +22,7 @@
   }
 }
 .buttonDel {
+  color: rgba(255, 64, 64, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +41,7 @@
 }
 
 .buttonDelSvg {
-  color: #000000;
+  color: rgba(255, 64, 64, 0.8);
   transition: all linear 300ms;
   &:hover {
     cursor: pointer;
