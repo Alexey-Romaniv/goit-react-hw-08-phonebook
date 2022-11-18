@@ -1,15 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { selectToken } from 'redux/auth/authSelectors';
 
-const Title = styled.h2`
-  fonst-size: 28px;
-  line-height: 1.3;
-`;
-export const Section = ({ children, title }) => {
-  return (
-    <section>
-      <Title>{title}</Title>
-      {children}
-    </section>
-  );
+import s from './Section.module.scss';
+
+export const Section = ({ children }) => {
+  const token = useSelector(selectToken);
+  return <>{token && <section className={s.section}> {children}</section>}</>;
+};
+
+Section.propTypes = {
+  children: PropTypes.node.isRequired,
 };

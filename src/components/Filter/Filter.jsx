@@ -1,20 +1,26 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, Input } from 'components/AddedForm/AddContacts';
 
-export const Filter = ({ handleChange }) => {
+import s from '../ContactForm/ContactForm.module.scss';
+
+export const Filter = ({ filtration }) => {
   const handleFilterInput = ({ target: { value } }) => {
-    handleChange(value.toLowerCase());
+    filtration(value.toLowerCase());
   };
+
   return (
-    <Label>
+    <label className={s.label}>
       Find contacts by name
-      <Input type="text" name="filter" onChange={e => handleFilterInput(e)} />
-    </Label>
+      <input
+        className={s.input}
+        type="text"
+        name="filter"
+        required
+        onChange={e => handleFilterInput(e)}
+      />
+    </label>
   );
 };
 
 Filter.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  // filter: PropTypes.string.isRequired,
+  filtration: PropTypes.func.isRequired,
 };

@@ -1,66 +1,64 @@
-import React from 'react';
-import { nanoid } from 'nanoid';
-import { Notify } from 'notiflix';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectContacts,
-  selectLoading,
-  selectError,
-} from 'redux/contacts/contactsSelector';
-import { fetchContacts, addContact, deleteContact } from 'redux/operations';
-import { filterContacts } from 'redux/filter/filterSlice';
+import { HomePage } from 'pages/HomePage/HomePage';
+import { ContactsPage } from 'pages/ContactsPage/ContactsPage';
+import { LoginPage } from 'pages/LoginPage/LoginPage';
+import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
+import { Layout } from './Layout/Layout';
+import { fetchCurrentUser } from 'redux/auth/authOperations';
+import { selectIsFetchingCurrentUser } from 'redux/auth/authSelectors';
+import { PublicRoute } from 'HOCs/PublicRoute';
+import { PrivateRoute } from 'HOCs/PrivateRoute';
 
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import { Section } from './Section/Section';
-import PhoneBookForm from './AddedForm/AddContacts';
-fetchContacts();
-export const Phonebook = () => {
-  const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-
+export const App = () => {
+  const isFetchingCurrentUser = useSelector(selectIsFetchingCurrentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  const handleChange = filterKey => {
-    // setFilter(filterKey.target.value);
-
-    dispatch(filterContacts(filterKey));
-  };
-  const addNewContact = ({ name, number }) => {
-    const newContact = { name, number, id: nanoid() };
-    const findSameContact = contacts.find(
-      el => el.name.toLowerCase() === name.toLowerCase()
-    );
-    if (!findSameContact) {
-      dispatch(addContact(newContact));
-    } else {
-      Notify.warning(`${name} is already in contacts.`);
-    }
-  };
-
-  const contactDelete = id => {
-    dispatch(deleteContact(id));
-  };
-
   return (
-    <div>
-      <Section title="Phonebook">
-        <PhoneBookForm addContact={addNewContact} />
-      </Section>
-      <Section title="Contacts">
-        <Filter handleChange={handleChange} />
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {!isLoading && !error && (
-          <ContactList onDeleteContact={contactDelete} />
-        )}
-      </Section>
-    </div>
+    <>
+      {!isFetchingCurrentUser && (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route
+              index
+              element={
+                <PublicRoute>
+                  <HomePage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute restricted>
+                  <RegisterPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute restricted>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute>
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      )}
+    </>
   );
 };
