@@ -38,11 +38,11 @@
 
   order: 1;
   align-self: stretch;
-
+  transition: all linear 300ms;
   &:focus,
   &:hover {
     cursor: pointer;
-    outline: 1px solid #4cc6f5;
+    outline: 1px solid rgba(255, 64, 64, 0.8);
   }
 }
 

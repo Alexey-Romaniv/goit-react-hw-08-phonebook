@@ -13,7 +13,7 @@
   order: 1;
   align-self: stretch;
 
-  transition: all linear 500ms;
+  transition: all linear 300ms;
 
   &:focus,
   &:hover {
@@ -41,7 +41,7 @@
 
 .buttonDelSvg {
   color: #000000;
-  transition: all linear 500ms;
+  transition: all linear 300ms;
   &:hover {
     cursor: pointer;
     transform: scale(1.5);
@@ -65,7 +65,7 @@
   border: none;
   align-self: stretch;
 
-  transition: all linear 500ms;
+  transition: all linear 300ms;
   &:hover {
     cursor: pointer;
     transform: scale(1.5);
