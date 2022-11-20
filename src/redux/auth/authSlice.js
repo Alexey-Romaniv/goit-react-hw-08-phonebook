@@ -41,10 +41,10 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    [login.fulfilled]: (state, { payload: { user, token } }) => {
+    [login.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.user = user;
-      state.token = token;
+      state.user = payload.user;
+      state.token = payload.token;
       state.isLoggedIn = true;
     },
     [login.rejected]: (state, { payload }) => {
@@ -57,11 +57,11 @@ const authSlice = createSlice({
     },
     [logout.fulfilled]: state => {
       state.isLoading = false;
+      state.token = null;
       state.user = {
         name: '',
         email: '',
       };
-      state.token = null;
       state.isLoggedIn = false;
     },
     [logout.rejected]: (state, { payload }) => {
