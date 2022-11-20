@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectToken } from 'redux/auth/authSelectors';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 
 import s from './Navigation.module.scss';
 
 export const Navigation = () => {
-  const token = useSelector(selectToken);
+  const token = useSelector(selectIsLoggedIn);
   return (
     <nav>
       <ul className={s.navList}>
@@ -17,7 +17,7 @@ export const Navigation = () => {
         </li>
         {token && (
           <li>
-            <Link className={s.navLink} to="/contacts">
+            <Link className={s.navLink} to="contacts">
               <button className={s.navItem}>Phonebook</button>
             </Link>
           </li>

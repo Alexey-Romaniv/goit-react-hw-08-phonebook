@@ -2,7 +2,7 @@ import { Navigation } from 'components/Navigation/Navigation';
 import { AuthNavigation } from 'components/AuthNavigation/AuthNavigation';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectToken } from 'redux/auth/authSelectors';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 import { logout } from 'redux/auth/authOperations';
 import { LogOutButton } from '../Button/Button';
 
@@ -11,7 +11,7 @@ import { LogOutButton } from '../Button/Button';
 import s from './AppBar.module.scss';
 
 export const AppBar = () => {
-  const token = useSelector(selectToken);
+  const token = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
   const clickHeandler = () => {

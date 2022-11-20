@@ -54,6 +54,7 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, { rejectWithValue, getState }) => {
     const tokenFromStorage = getState().auth.token;
+    console.log(tokenFromStorage);
     if (!tokenFromStorage) {
       return rejectWithValue('');
     }

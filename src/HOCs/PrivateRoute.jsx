@@ -4,5 +4,5 @@ import { Navigate } from 'react-router-dom';
 
 export const PrivateRoute = ({ children, redirectTo }) => {
   const token = useSelector(selectIsLoggedIn);
-  return token ? children : <Navigate to="/login" />;
+  return token ? children : <Navigate to={redirectTo} />;
 };
