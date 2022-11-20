@@ -15,6 +15,7 @@ const initialState = {
   isLoading: false,
   error: null,
   isFetchingCurrentUser: false,
+  isLoggedIn: false,
 };
 
 const authSlice = createSlice({
@@ -24,11 +25,13 @@ const authSlice = createSlice({
   extraReducers: {
     [registration.pending]: state => {
       state.isLoading = true;
+      state.error = null;
     },
     [registration.fulfilled]: (state, { payload: { user, token } }) => {
       state.isLoading = false;
       state.user = user;
       state.token = token;
+      state.isLoggedIn = true;
     },
     [registration.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -42,6 +45,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.user = user;
       state.token = token;
+      state.isLoggedIn = true;
     },
     [login.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -49,6 +53,7 @@ const authSlice = createSlice({
     },
     [logout.pending]: state => {
       state.isLoading = true;
+      state.error = null;
     },
     [logout.fulfilled]: state => {
       state.isLoading = false;
@@ -57,6 +62,7 @@ const authSlice = createSlice({
         email: '',
       };
       state.token = null;
+      state.isLoggedIn = false;
     },
     [logout.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -64,14 +70,18 @@ const authSlice = createSlice({
     },
     [fetchCurrentUser.pending]: state => {
       state.isLoading = true;
+      state.error = null;
     },
     [fetchCurrentUser.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.user = payload;
+      state.isLoggedIn = true;
+      state.isFetching = false;
     },
     [fetchCurrentUser.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+      state.isFetching = false;
     },
   },
 });

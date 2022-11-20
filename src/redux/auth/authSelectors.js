@@ -16,3 +16,4 @@ export const selectError = state => {
 export const selectIsFetchingCurrentUser = state => {
   return state.auth.isFetchingCurrentUser;
 };
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;

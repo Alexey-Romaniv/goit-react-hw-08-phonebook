@@ -8,7 +8,7 @@ const token = {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
-    axios.defaults.headers.common.Authorization = ``;
+    axios.defaults.headers.common.Authorization = '';
   },
 };
 
@@ -20,7 +20,7 @@ export const registration = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue('This user already exist');
     }
   }
 );
@@ -55,7 +55,7 @@ export const fetchCurrentUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const tokenFromStorage = getState().auth.token;
     if (!tokenFromStorage) {
-      return rejectWithValue();
+      return rejectWithValue('');
     }
     token.set(tokenFromStorage);
     try {
