@@ -27,42 +27,42 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
-    [registration.fulfilled]: (state, { payload: { user, token } }) => {
-      state.isLoading = false;
-      state.user = user;
-      state.token = token;
+    [registration.fulfilled]: (state, { payload }) => {
+      state.token = payload.token;
+      state.user = payload.user;
       state.isLoggedIn = true;
+      state.isLoading = false;
     },
     [registration.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.error = payload;
+      state.isLoading = false;
     },
     [login.pending]: state => {
       state.isLoading = true;
       state.error = null;
     },
     [login.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.user = payload.user;
       state.token = payload.token;
       state.isLoggedIn = true;
+      state.isLoading = false;
     },
     [login.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.error = payload;
+      state.isLoading = false;
     },
     [logout.pending]: state => {
       state.isLoading = true;
       state.error = null;
     },
     [logout.fulfilled]: state => {
-      state.isLoading = false;
       state.token = null;
       state.user = {
         name: '',
         email: '',
       };
       state.isLoggedIn = false;
+      state.isLoading = false;
     },
     [logout.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -73,15 +73,15 @@ const authSlice = createSlice({
       state.error = null;
     },
     [fetchCurrentUser.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.user = payload;
       state.isLoggedIn = true;
       state.isFetching = false;
+      state.isLoading = false;
     },
     [fetchCurrentUser.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.error = payload;
       state.isFetching = false;
+      state.isLoading = false;
     },
   },
 });

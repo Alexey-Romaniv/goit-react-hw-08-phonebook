@@ -13,7 +13,7 @@ const token = {
 };
 
 export const registration = createAsyncThunk(
-  'auth/registration',
+  'auth/registerUser',
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/signup', userData);
@@ -26,7 +26,7 @@ export const registration = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  'auth/login',
+  'auth/loginUser',
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/login', userData);
@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  'auth/logout',
+  'auth/logoutUser',
   async (_, { rejectWithValue }) => {
     try {
       await axios.post('/users/logout');
@@ -51,7 +51,7 @@ export const logout = createAsyncThunk(
 );
 
 export const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
+  'auth/refreshUser',
   async (_, { rejectWithValue, getState }) => {
     const tokenFromStorage = getState().auth.token;
     console.log(tokenFromStorage);
