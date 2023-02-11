@@ -14,7 +14,7 @@ const initialState = {
   token: null,
   isLoading: false,
   error: null,
-  isFetchingCurrentUser: false,
+  isFetching: false,
   isLoggedIn: false,
 };
 
@@ -70,6 +70,7 @@ const authSlice = createSlice({
     },
     [fetchCurrentUser.pending]: state => {
       state.isLoading = true;
+      state.isFetching = true;
       state.error = null;
     },
     [fetchCurrentUser.fulfilled]: (state, { payload }) => {
