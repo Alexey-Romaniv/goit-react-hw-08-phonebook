@@ -1,13 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios('/contacts');
+      const { data } = await axios.get('/contacts');
+
       return data;
     } catch (error) {
+      toast.error(error.response.data.message);
+      console.log('ERORRRR');
       return rejectWithValue(error.message);
     }
   }

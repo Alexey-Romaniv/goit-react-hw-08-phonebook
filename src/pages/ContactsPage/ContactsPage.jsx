@@ -25,17 +25,16 @@ import { Modal } from 'components/Modal/Modal';
 import s from '../ContactsPage/ContactPage.module.scss';
 
 export const ContactsPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   const [modalIsOpen, setmodalIsOpen] = useState('');
   const [currentContact, setcurrentContact] = useState(null);
 
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   const addNewContact = contact => {
     const newContact = {

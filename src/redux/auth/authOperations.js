@@ -31,6 +31,7 @@ export const login = createAsyncThunk(
     try {
       const { data } = await axios.post('/users/login', userData);
       token.set(data.token);
+      console.log(data.token);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -54,9 +55,10 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/refreshUser',
   async (_, { rejectWithValue, getState }) => {
     const tokenFromStorage = getState().auth.token;
-    console.log(tokenFromStorage + '    - token');
+
+    console.log(tokenFromStorage + ' - token');
     if (!tokenFromStorage) {
-      return rejectWithValue('');
+      return rejectWithValue('error');
     }
     token.set(tokenFromStorage);
     try {
@@ -64,7 +66,7 @@ export const fetchCurrentUser = createAsyncThunk(
       console.log(data);
       return data;
     } catch (error) {
-      return rejectWithValue('');
+      return rejectWithValue('ERRRORR');
     }
   }
 );
